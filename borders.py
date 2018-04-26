@@ -167,14 +167,22 @@ showImg(img)
 k=transform_frame(img)
 showImg(k)
 """
-
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
 cap = cv2.VideoCapture('lane3.mp4')
-
+width = int(cap.get(3))  # float
+height = int(cap.get(4)) # float
+out = cv2.VideoWriter('output.avi',fourcc, 20.0, (width,height))
+    
 while(cap.isOpened()):
     ret, img = cap.read()
-    cv2.imshow('frame',transform_frame(img)) 
+    if (not ret):
+        break
+    transform = transform_frame(img)
+    cv2.imshow('frame',transform) 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+    out.write(transform)
 
+out.release()
 cap.release()
 cv2.destroyAllWindows()
