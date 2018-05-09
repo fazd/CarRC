@@ -131,7 +131,7 @@ def transform_frame(img):
     v2 = [int(50*width/1000), height]
     v3 = [int(950*width/1000), height] 
 
-    l_yellow = np.array([60, 80, 80], dtype = np.uint8)
+    l_yellow = np.array([60, 80, 80], dtype = np.uint8) 
     u_yellow = np.array([105, 255, 255], dtype=np.uint8)
     l_white = np.array([0, 0, 200],dtype = np.uint8)
     u_white = np.array([255,80, 255],dtype = np.uint8)
@@ -167,14 +167,22 @@ showImg(img)
 k=transform_frame(img)
 showImg(k)
 """
-
+fourcc = cv2.VideoWriter_fourcc(*'XVID')
 cap = cv2.VideoCapture('lane3.mp4')
-
+width = int(cap.get(3))  # float
+height = int(cap.get(4)) # float
+out = cv2.VideoWriter('output.mp4',fourcc, 20.0, (width,height))
+    
 while(cap.isOpened()):
     ret, img = cap.read()
-    cv2.imshow('frame',transform_frame(img)) 
+    if (not ret):
+        break
+    transform = transform_frame(img)
+    cv2.imshow('frame',transform) 
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
+    out.write(transform)
 
+out.release()
 cap.release()
 cv2.destroyAllWindows()
