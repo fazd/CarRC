@@ -171,6 +171,7 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID')
 cap = cv2.VideoCapture('lane3.mp4')
 width = int(cap.get(3))  # float
 height = int(cap.get(4)) # float
+
 out = cv2.VideoWriter('output.mp4',fourcc, 20.0, (width,height))
     
 while(cap.isOpened()):
