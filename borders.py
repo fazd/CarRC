@@ -169,8 +169,7 @@ class Border:
         
 
 
-"""
-cap = cv2.VideoCapture('lane3.mp4')    
+cap = cv2.VideoCapture('lane1.mp4')    
 while(cap.isOpened()):
     ret, img = cap.read()
     if (not ret):
@@ -184,4 +183,3 @@ while(cap.isOpened()):
     
 cap.release()
 cv2.destroyAllWindows()
-"""
